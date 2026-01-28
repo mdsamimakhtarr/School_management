@@ -36,14 +36,14 @@ const adminSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/* 🔐 HASH PASSWORD */
+/*  HASH PASSWORD */
 adminSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-/* 🔑 COMPARE PASSWORD */
+/*  COMPARE PASSWORD */
 adminSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

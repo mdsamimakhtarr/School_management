@@ -36,7 +36,7 @@ exports.adminLogin = async (req, res) => {
       });
     }
 
-    // 🔐 JWT Token
+    //  JWT Token
     const token = jwt.sign(
       {
         id: admin._id,

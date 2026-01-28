@@ -28,3 +28,17 @@ exports.sendOtpEmail = async (to, otp) => {
     `,
   });
 };
+
+exports.sendAbsentEmail = async (to, name, date) => {
+  await transporter.sendMail({
+    from: `"School App" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: "Attendance Alert",
+    html: `
+      <h2>Hello ${name}</h2>
+      <p>You were marked <b style="color:red;">ABSENT</b> on <b>${date}</b>.</p>
+      <p>Please contact the school if this is incorrect.</p>
+    `,
+  });
+};
+
