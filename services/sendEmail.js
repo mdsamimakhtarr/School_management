@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// optional but recommended (debug ke liye)
+// optional but recommended 
 transporter.verify((error, success) => {
   if (error) {
     console.log("❌ Email config error:", error);
