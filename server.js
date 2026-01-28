@@ -12,9 +12,11 @@ app.use(express.json());
 // Routes
 const authRoutes = require("./routes/auth.routes");
 const achievementRoutes = require("./routes/achievement.routes"); 
+const adminAuthRoutes = require("./routes/admin.auth.routes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/features/achievements", achievementRoutes);
+app.use("/api/admin/auth", adminAuthRoutes);
 
 // Test
 app.get("/", (req, res) => {
