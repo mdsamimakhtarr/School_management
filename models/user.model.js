@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    // ROLE MANAGEMENT
+    //  role  manage 
     role: {
       type: String,
       enum: ["user", "admin"],

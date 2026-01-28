@@ -1,30 +1,33 @@
-require("dotenv").config();   // ✅ SABSE UPAR
-
 const express = require("express");
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-const app = express();
+dotenv.config();
 
-const authRoutes = require("./routes/auth.routes");
+const app = express();
 
 // Middleware
 app.use(express.json());
 
 // Routes
-app.use("/api/auth", authRoutes);
+const authRoutes = require("./routes/auth.routes");
+const achievementRoutes = require("./routes/achievement.routes"); 
 
-// Test Route
+app.use("/api/auth", authRoutes);
+app.use("/api/features/achievements", achievementRoutes);
+
+// Test
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// DB Connect
+// DB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error(err));
 
-// Server Start
+// Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

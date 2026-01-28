@@ -30,7 +30,7 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 🔥 admin email rule (change if needed)
+    // admin email rule (change if needed)
     const adminEmails = ["admin@gmail.com"];
     const role = adminEmails.includes(email) ? "admin" : "user";
 
