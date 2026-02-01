@@ -1,38 +1,44 @@
-const express = require("express");
 const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const connectMongo = require("./databases/mongo.js");
+const app = require("./app.js");
 
 dotenv.config();
 
-const app = express();
+// // Routes
+// const authRoutes = require("./routes/auth.routes");
+// const achievementRoutes = require("./routes/achievement.routes");
+// const adminAuthRoutes = require("./routes/admin.auth.routes");
+// const attendanceRoutes = require("./routes/attendance.routes");
 
-// Middleware
-app.use(express.json());
-
-// Routes
-const authRoutes = require("./routes/auth.routes");
-const achievementRoutes = require("./routes/achievement.routes"); 
-const adminAuthRoutes = require("./routes/admin.auth.routes");
-const attendanceRoutes = require("./routes/attendance.routes");
-
-app.use("/api/auth", authRoutes);
-app.use("/api/features/achievements", achievementRoutes);
-app.use("/api/admin/auth", adminAuthRoutes);
-app.use("/api/attendance", attendanceRoutes);
+// app.use("/api/auth", authRoutes);
+// app.use("/api/features/achievements", achievementRoutes);
+// app.use("/api/admin/auth", adminAuthRoutes);
+// app.use("/api/attendance", attendanceRoutes);
 
 // Test
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
 
 // DB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error(err));
 
-// Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+const port = process.env.PORT || 3000;
+
+connectMongo()
+  .then(() => {
+    try {
+      app.on("error", (error) => {
+        console.log("ERROR:", error);
+        throw error;
+      });
+      app.listen(port, () => {
+        console.log(`Server is running in: ${port}`);
+      });
+    } catch (error) {
+      console.log("ERROR:", error);
+      throw error;
+    }
+  })
+  .catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+  });
