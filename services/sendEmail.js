@@ -19,7 +19,7 @@ transporter.verify((error, success) => {
 
 exports.sendOtpEmail = async (to, otp) => {
   await transporter.sendMail({
-    from: `" CodeKart Software Pvt.Ltd " <${process.env.EMAIL_USER}>`,
+    from: `"  Srusti Academy Of Management  and Technology " <${process.env.EMAIL_USER}>`,
     to,
     subject: "Your Login OTP",
     html: `
